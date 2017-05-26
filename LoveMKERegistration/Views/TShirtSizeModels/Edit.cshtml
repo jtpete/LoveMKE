@@ -1,0 +1,53 @@
+﻿@model LoveMKERegistration.Models.TShirtSizeModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Change Size</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal col-md-3">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.IndividualId)
+
+        <div class="form-group">
+            <h4>@Html.LabelFor(model => model.FirstName)</h4>
+            <div>
+                <h4>@Html.DisplayFor(model => model.FirstName)</h4>
+                @Html.HiddenFor(model => model.FirstName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h4>@Html.LabelFor(model => model.LastName)</h4>
+            <div>
+                <h4>@Html.DisplayFor(model => model.LastName)</h4>
+                @Html.HiddenFor(model => model.LastName)
+            </div>
+        </div>
+        <div class="form-group">
+            <h4>@Html.LabelFor(model => model.Size)</h4>
+            <div>
+                @Html.DropDownListFor(model => model.Size, Model.TShirtSizes, "Select Size")
+                @Html.HiddenFor(model => model.Size)
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div>
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.ActionLink("Back to List", "TshirtList")
+        </div>
+    </div>
+}
+

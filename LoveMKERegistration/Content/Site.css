@@ -1,0 +1,140 @@
+﻿html{
+    background-image: url('../Images/Background.png') !important;
+    background-size: cover;
+    background-repeat: repeat-y;
+    background-position: center;
+}
+
+body {
+    background-color: rgba(0,0,0,0) !important;
+}
+
+@media only screen and (max-width: 500px) {
+
+    #loveMKErow {
+        height: 300px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .projectBtn {
+        width: 70%;
+        height: 70%;
+        background-color: #8ac740;
+        border-radius: 15px;
+        border: 3px solid white;
+        margin-left: 40px;
+        box-shadow: 2px 2px 2px white;
+    }
+}
+
+.headerRow {
+    color: white;
+    font-size: 20px;
+}
+
+.bodyRow{
+        color: white;
+    font-size: 18px;
+}
+
+
+
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 650px;
+
+}
+h4, h2, label{
+    color: white !important;
+    font-family: Arial, Helvetica, sans-serif;
+}
+a{
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    font-size:x-large;
+}
+
+#mainContainer {
+    max-width: 1080px;
+    margin: 0 auto;
+    justify-content: center;  
+
+}
+#navSouthbrookLogo {
+    object-fit: cover;
+    height: 33px;
+}
+#loveMKErow{
+    margin-top: 6em;
+    height: 400px;
+    width: 100%;
+    text-align: center;
+}
+#loveMKEHomeLogo{
+    height: 100%;
+    width: 100%;
+}
+.center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.projectButtons{
+    height: 150px;
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.projectBtn:hover{
+  width: 70%;
+  height: 70%;
+  background-color: #8ac740;
+  border-radius: 15px;
+  border: 3px solid white;
+      margin-top: 50px;
+    margin-left: 40px;
+  box-shadow:20px 20px 30px black;
+
+}
+.projectBtn{
+  width: 70%;
+  height: 70%;
+  background-color: #8ac740;
+  border-radius: 15px;
+  border: 3px solid white;
+      margin-top: 50px;
+    margin-left: 40px;
+  box-shadow:2px 2px 2px white;
+
+}
+#adminCount{
+    height:200px;
+    width: 100%;
+    text-align: center;
+}
+#deleteText{
+    font-size: x-large;
+    color: white;
+}
+.editDisplay{
+    color: white;
+    font-size: x-large;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}

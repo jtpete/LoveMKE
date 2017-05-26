@@ -1,0 +1,76 @@
+﻿@model IList<LoveMKERegistration.Models.TShirtSizeModel>
+
+@{
+    ViewBag.Title = "Tshirts";
+    string message = "T-Shirt Order " + ViewBag.Message;
+}
+
+<h2>@message</h2>
+
+<br />
+<br/>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<table class="table table-sm table-responsive">
+        <tr class="headerRow">
+            <th>
+                @Html.DisplayName("First Name")
+            </th>
+            <th>
+                @Html.DisplayName("Last Name")
+            </th>
+            <th>
+                @Html.DisplayName("Tshirt Size")
+            </th>
+        </tr>
+    <tbody class="bodyRow">
+
+        @for(int i = 0; i < Model.Count(); i++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(s => s[i].FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(s => s[i].LastName)
+                </td>
+                <td>
+    
+        @if (Model[i].Size != "Not signed up for project")
+        {
+            @Html.DropDownListFor(s => s[i].Size, Model[i].TShirtSizes, "Select Size", new { @class = "form-control" })
+            @Html.HiddenFor(s => s[i].Size)
+
+        }
+        else
+        {
+            @Html.DisplayFor(s => s[i].Size)
+        }
+            </td>
+            </tr>
+            @Html.HiddenFor(s => s[i].IndividualId)
+            @Html.HiddenFor(s => s[i].FirstName)
+            @Html.HiddenFor(s => s[i].LastName)
+            @Html.HiddenFor(s => s[i].Size)
+   
+
+
+
+
+        }
+    </tbody>
+
+</table>
+
+
+<div class="row form-group">
+    <div class="col-md-1">
+        <a class="btn btn-default" href="~/Home/Index">Done</a>
+    </div>
+    <div class="col-md-1">
+        <input type="submit" value="Save Changes" class="btn btn-default" />
+    </div>
+</div>
+}
+

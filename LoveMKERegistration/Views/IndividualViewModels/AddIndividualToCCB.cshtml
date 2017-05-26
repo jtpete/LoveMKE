@@ -1,0 +1,60 @@
+﻿@model LoveMKERegistration.Models.IndividualViewModel
+
+@{
+    ViewBag.Title = "AddIndividualToCCB";
+}
+
+
+@{
+
+    string fullname = Model.FirstName + " " + Model.LastName;
+}
+
+<h2>@fullname</h2>
+
+<hr />
+
+<br />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Will you be signing up more family members?</h4>
+            </div>
+            <div class="col-md-4 form-group">
+                    @Html.Label("Yes  ");
+                    @Html.RadioButton("radioResponse", "Yes", true, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.Label("No  ");
+                    @Html.RadioButton("radioResponse", "No", false, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-6">
+                <h4>If Yes, how many other family members will you be signing up?</h4>
+            </div>
+            <div class="col-md-4 form-group">
+                    @Html.TextBox("familyNumber", "0", htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-3">
+                    <input type="submit" value="Continue" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

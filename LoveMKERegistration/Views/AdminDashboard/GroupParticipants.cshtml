@@ -1,0 +1,84 @@
+﻿@model IList<LoveMKERegistration.Models.ParticipantViewModel>
+
+@{
+    ViewBag.Title = "GroupParticipants";
+}
+
+@using (Html.BeginForm("GroupParticipants", "AdminDashboard", FormMethod.Post, new { id = "TheForm" }))
+{
+    <div class="row">
+        <div class="col-md-6">
+            @if (ViewBag.DisplayGroup != null)
+            {
+                <h2>@ViewBag.DisplayGroup</h2>
+
+            }
+            else
+            {
+                <h2>Project Participants</h2>
+            }
+
+        </div>
+
+        <div class="col-md-6">
+            <div>
+                @Html.DropDownList("group", new SelectList(ViewBag.Groups), "--Select One--", new
+           {
+               onchange = "document.getElementById('TheForm').submit();"
+           })
+            </div>
+
+        </div>
+
+    </div>
+
+    <br />
+    <br />
+
+
+    <table class="table table-responsive">
+        <tr class="headerRow">
+            <th>
+                @Html.DisplayName("Group")
+            </th>
+            <th>
+                @Html.DisplayName("Name")
+            </th>
+            <th>
+                @Html.DisplayName("Email")
+            </th>
+            <th>
+                @Html.DisplayName("Phone")
+            </th>
+        </tr>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                if (ViewBag.DisplayGroup == Model[i].GroupName || ViewBag.DisplayGroup == null)
+                {
+                    <tr class="bodyRow">
+                        <td>
+                            @Html.DisplayFor(p => p[i].GroupName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(p => p[i].DisplayName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(p => p[i].Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(p => p[i].Phone)
+                        </td>
+                    </tr>
+                }
+
+                @Html.HiddenFor(p => p[i].GroupName)
+                @Html.HiddenFor(p => p[i].FirstName)
+                @Html.HiddenFor(p => p[i].LastName)
+                @Html.HiddenFor(p => p[i].Phone)
+                @Html.HiddenFor(p => p[i].Email)
+
+            }
+        </tbody>
+    </table>
+}

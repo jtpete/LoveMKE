@@ -1,0 +1,156 @@
+﻿@model LoveMKERegistration.Models.SignupViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+    <h2>@Model.Family.DisplayName</h2>
+
+@using (Html.BeginForm("AddIndividuals", "SignupView", FormMethod.Post, null))
+{
+    <br />
+    <br />
+    <div class="form-group">
+        <div>
+            <input type="submit" class="btn btn-default btn-lg" />
+        </div>
+    </div>
+    <table class="table table-responsive signup-table borderless">
+        @{ var i = 0; }
+        @foreach (var item in Model.Groups)
+        {
+            List<string> currentMemberList = new List<string>();
+            foreach (var id in item.CurrentMembers) { currentMemberList.Add(id.IndividualId); };
+            <tr class="table-row">
+                <td class="table-data">
+                    <div class="signup-title">@item.Name</div>
+                    @if(item.SpotsRemaining <= 0){<h4 class="card-capacity"><small class="text-muted text-danger"><strong>FULL</strong></small></h4>}
+                    else{<h4 class="card-capacity"><small class="text-muted text-success"><strong>@Html.DisplayFor(modelItem => item.SpotsRemaining) of @Html.DisplayFor(modelItem => item.Capacity) spots remaining</strong></small></h4>}
+                    <br />
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal@(i)">Details</button>
+                </td>
+                <td>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"
+                                   name="addPerson"
+                                   value="@Model.Family.IndividualId-@item.GroupId"
+                                   @if(item.SpotsRemaining <= 0) {<text> disabled="disabled" </text>}
+                                   @if(currentMemberList.Contains(Model.Family.IndividualId) || item.LeaderID == Model.Family.IndividualId){<text> disabled="disabled" checked</text>}
+                                   /> 
+                            <span class="label-text">@Model.Family.FirstName</span>
+                            </label>
+                        </div>
+
+                        <div class="modal fade" id="myModal@(i)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h1 class="modal-title" id="myModalLabel">@Html.DisplayFor(modelItem => item.Name)</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3>@Html.DisplayNameFor(modelItem => item.Leader)</h3>
+                                        <p>@Html.DisplayFor(modelItem => item.Leader.FirstName) @Html.DisplayFor(modelItem => item.Leader.LastName)</p>
+                                        <p>@Html.DisplayFor(modelItem => item.Leader.Phone)</p>
+                                        <p class="email-display">@Html.DisplayFor(modelItem => item.Leader.Email)</p>
+                                        <p>@Html.DisplayFor(modelItem => item.Description)</p>
+                                        <h3>@Html.DisplayNameFor(modelItem => item.Address)</h3>
+                                        <p>@Html.DisplayFor(modelItem => item.Address)</p>
+                                        <p>@Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.State) @Html.DisplayFor(modelItem => item.ZipCode)</p>
+                                    </div>
+                                    <div class="mapping-canvas">
+                                        <div id="map@(i)" style="display: block; height: 300px; width: 100%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @foreach (var f in Model.Family.Family)
+                        {
+                            <div class="checkbox">
+                                <label class="signup-person">
+                                    <input type="checkbox"
+                                           name="addPerson"
+                                           value="@f.IndividualId-@item.GroupId"
+                                           @if(item.SpotsRemaining <= 0) {<text> disabled="disabled" </text>}
+                                           @if(currentMemberList.Contains(f.IndividualId) || item.LeaderID == f.IndividualId){<text> disabled="disabled" checked</text>}
+                                           /> 
+                                    <span class="label-text">@f.FirstName</span>
+                                    </label>
+                                </div>
+                        }
+                    </td>
+                </tr>
+            i++;
+        }
+    </table>
+
+    TempData["person"] = Model.Family;
+
+    TempData["signup"] = Model;
+    <div class="form-group">
+        <div>
+            <input type="submit" class="btn btn-default btn-lg" />
+        </div>
+    </div>
+
+}
+
+    <script defer async
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs-RA_SMnfu5Ls-XTdt5K_Jfi06npmdw4&callback=initMap">
+    </script>
+    <script>
+        function initMap(address, i, contentString)
+        {
+            var geocoder = new google.maps.Geocoder();
+            var infowindow = new google.maps.InfoWindow();
+            var city = { lat: 43.079147, lng: -88.771030 };
+
+            var map = new google.maps.Map(document.getElementById("map" + i), {
+                zoom: 10,
+                center: city,
+            });
+            GeocodeAddress(geocoder, address, map, infowindow, contentString);
+        }
+
+        function GeocodeAddress(geocoder, location, resultsMap, infowindow, contentString) {
+            geocoder.geocode( { 'address': location}, function(results, status) {
+                //alert(status);
+                if (status == google.maps.GeocoderStatus.OK) {
+                    resultsMap.setCenter(results[0].geometry.location)
+                    //alert(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: resultsMap,
+                        position: results[0].geometry.location
+                    });
+                    google.maps.event.addListener(marker, 'mouseover', function() {
+                        infowindow.setContent(contentString);
+                        infowindow.open(resultsMap, marker);
+                    });
+                    google.maps.event.addListener(marker, 'mouseout', function() {
+                        infowindow.close();
+                    });
+                }
+                else
+                {
+                    alert("Problem with Geocode." + status);
+                }
+            });
+        }
+
+        @{
+        int count = 0;
+
+        foreach (var item in Model.Groups)
+        {
+            var contentString = new HtmlString("<div><strong>" + Html.DisplayFor(modelItem => item.Name) + "</strong></div>" +
+                     "<div>" + Html.DisplayFor(modelItem => item.Address) + "</div>" +
+                     "<div>" + Html.DisplayFor(modelItem => item.City) + "," + "</div>" +
+                     "<div>" + Html.DisplayFor(modelItem => item.State) + " " + Html.DisplayFor(modelItem => item.ZipCode) + "</div>");
+            string modal = "#myModal" + count.ToString();
+            @:$('@modal').on('shown.bs.modal', function (){initMap("@Html.DisplayFor(modelItem => item.DisplayAddress)", @(count), "@(contentString)");});
+                    count++;
+        }
+    }
+
+    </script>

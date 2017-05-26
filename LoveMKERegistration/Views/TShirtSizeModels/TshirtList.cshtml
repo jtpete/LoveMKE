@@ -1,0 +1,57 @@
+﻿@model IEnumerable<LoveMKERegistration.Models.TShirtSizeModel>
+
+@{
+    ViewBag.Title = "TshirtList";
+}
+
+<h2>List of T-Shirts</h2>
+
+<br />
+
+<div class="row">
+        <div class="col-md-1">
+            <a class="btn btn-default" href="~/TShirtSizeModels/TshirtTotals">T-Shirt Totals</a>
+        </div>
+    </div>
+<br />
+<br />
+<br />
+
+
+<table class="table table-sm table-responsive">
+        <tr class="headerRow">
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Size)
+            </th>
+
+            <th></th>
+        </tr>
+    <tbody class="bodyRow">
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Size)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.IndividualId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.IndividualId })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

@@ -8,6 +8,11 @@
 *.user
 *.userosscache
 *.sln.docstates
+CCBchurchAPI.cs
+Web.config
+Web.Release.config
+Email.cs
+Startup.cs
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

@@ -1,0 +1,140 @@
+﻿@model IEnumerable<LoveMKERegistration.Models.GroupViewModel>
+
+@{
+    ViewBag.Title = "Groups";
+}
+
+
+
+
+<div class="container body-content center-align-cards">
+
+
+        @{
+            var itemCount = 0;
+        }
+
+        @{
+            foreach (var item in Model)
+            {
+                var insertRow = (itemCount+1) % 3 == 0;
+
+                if (insertRow)
+                {
+                        @:<div class="card-deck">
+                }
+                @:<div class="col-lg-5 col-md-5 col-sm-5">
+                        @:<div class="card">
+                            @:<div class="card-block">
+                                @:<h2 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h2>
+                            @:</div>
+                            @:<div class="card-block card-block-bottom">
+                                if (item.SpotsRemaining <= 0)
+                                {
+                                    @:<p class="card-capacity"><small class="text-muted text-danger">FULL</small></p>
+                                }
+                                else
+                                {
+                                    @:<p class="card-capacity"><small class="text-muted text-success">@Html.DisplayFor(modelItem => item.SpotsRemaining) of @Html.DisplayFor(modelItem => item.Capacity) spots remaining</small></p>
+                                }
+                                @:<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal@(itemCount)">Details</button>
+                            @:</div>
+                        @:</div>
+                @:</div>
+
+                        @:<div class="modal fade" id="myModal@(itemCount)" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    @:<div class="modal-dialog" role="document">
+                                        @:<div class="modal-content">
+                                            @:<div class="modal-header">
+                                                @:<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                @:<h1 class="modal-title" id="myModalLabel">@Html.DisplayFor(modelItem => item.Name)</h1>
+                                            @:</div>
+                                            @:<div class="modal-body">
+                                                @:<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                                @:</div>
+                                            @:<div class="modal-body">
+                                                @:<h3>@Html.DisplayNameFor(model => model.Leader)</h3>
+                                                @:<p>@Html.DisplayFor(modelItem => item.Leader.FirstName) @Html.DisplayFor(modelItem => item.Leader.LastName)</p>
+                                                @:<p>@Html.DisplayFor(modelItem => item.Leader.Phone)</p>
+                                                @:<p class="email-display">@Html.DisplayFor(modelItem => item.Leader.Email)</p>
+                                                @:<p>@Html.DisplayFor(modelItem => item.Description)</p>
+                                                @:<h3>@Html.DisplayNameFor(model => model.Address)</h3>
+                                                @:<p>@Html.DisplayFor(modelItem => item.Address)</p>
+                                                @:<p>@Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.State) @Html.DisplayFor(modelItem => item.ZipCode)</p>
+                                            @:</div>                            
+                                            @:<div class="mapping-canvas">
+                                                @:<div id="map@(itemCount)" style="display: block; height: 300px; width: 100%;"></div>
+                                            @:</div>
+
+                                        @:</div>
+                                    @:</div>
+                                @:</div>
+                if (insertRow)
+                {
+                    @:</div>
+                }
+                itemCount++;
+            }
+
+        }
+    </div>
+<script defer async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs-RA_SMnfu5Ls-XTdt5K_Jfi06npmdw4&callback=initMap">
+</script>
+<script>
+    function initMap(address, i, contentString)
+    {
+        var geocoder = new google.maps.Geocoder();
+        var infowindow = new google.maps.InfoWindow();
+        var city = { lat: 43.079147, lng: -88.771030 };
+
+        var map = new google.maps.Map(document.getElementById("map" + i), {
+            zoom: 10,
+            center: city,
+        });
+        GeocodeAddress(geocoder, address, map, infowindow, contentString);
+    }
+
+    function GeocodeAddress(geocoder, location, resultsMap, infowindow, contentString) {
+        geocoder.geocode( { 'address': location}, function(results, status) {
+            //alert(status);
+            if (status == google.maps.GeocoderStatus.OK) {
+                resultsMap.setCenter(results[0].geometry.location)
+                //alert(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: resultsMap,
+                    position: results[0].geometry.location
+                });
+                google.maps.event.addListener(marker, 'mouseover', function() { 
+                    infowindow.setContent(contentString);
+                    infowindow.open(resultsMap, marker);
+                });		
+                google.maps.event.addListener(marker, 'mouseout', function() { 
+                    infowindow.close();
+                });
+            }
+            else
+            {
+                alert("Problem with Geocode." + status);
+            }
+        }); 
+    }
+
+    @{
+        int count = 0;
+
+        foreach (var item in Model)
+        {
+            var contentString = new HtmlString("<div><strong>" + Html.DisplayFor(modelItem => item.Name) + "</strong></div>" +
+                     "<div>" + Html.DisplayFor(modelItem => item.Address) + "</div>" +
+                     "<div>" + Html.DisplayFor(modelItem => item.City) + "," + "</div>" +
+                     "<div>" + Html.DisplayFor(modelItem => item.State) + " " + Html.DisplayFor(modelItem => item.ZipCode) + "</div>");
+            string modal = "#myModal" + count.ToString();
+            @:$('@modal').on('shown.bs.modal', function (){initMap("@Html.DisplayFor(modelItem => item.DisplayAddress)", @(count), "@(contentString)");});
+            count++;
+        }
+    }
+
+</script>
+
+
