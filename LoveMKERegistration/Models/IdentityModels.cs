@@ -31,6 +31,8 @@ namespace LoveMKERegistration.Models
         }
         public DbSet<TShirtSizeModel> TShirtSizeModel { get; set; }
 
+        public DbSet<SettingsModel> SettingsModels { get; set; }
+
         //public System.Data.Entity.DbSet<LoveMKERegistration.Models.GroupViewModel> GroupViewModels { get; set; }
 
         //public System.Data.Entity.DbSet<LoveMKERegistration.Models.IndividualViewModel> IndividualViewModels { get; set; }

@@ -274,6 +274,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndividualViewModelsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SettingsModelsController.cs" />
     <Compile Include="Controllers\SignupViewController.cs" />
     <Compile Include="Controllers\TShirtSizeModelsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -283,6 +284,10 @@
     <Compile Include="Migrations\201705151409404_initialmigration.Designer.cs">
       <DependentUpon>201705151409404_initialmigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803311258226_settings.cs" />
+    <Compile Include="Migrations\201803311258226_settings.Designer.cs">
+      <DependentUpon>201803311258226_settings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -290,6 +295,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ParticipantViewModel.cs" />
     <Compile Include="Models\RegistrationViewModels.cs" />
+    <Compile Include="Models\SettingsModel.cs" />
     <Compile Include="Models\TShirtSizeModel.cs" />
     <Compile Include="Models\TshritSizeTotalViewModel.cs" />
     <Compile Include="Notification\Email.cs" />
@@ -335,7 +341,6 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="appsettings.json" />
     <None Include="Properties\PublishProfiles\loveMKEwinhost.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
@@ -409,6 +414,11 @@
     <Content Include="Views\TShirtSizeModels\TshirtTotals.cshtml" />
     <Content Include="Views\SignupView\SignupListView.cshtml" />
     <Content Include="Views\AdminDashboard\GroupParticipants.cshtml" />
+    <Content Include="Views\SettingsModels\Create.cshtml" />
+    <Content Include="Views\SettingsModels\Delete.cshtml" />
+    <Content Include="Views\SettingsModels\Details.cshtml" />
+    <Content Include="Views\SettingsModels\Edit.cshtml" />
+    <Content Include="Views\SettingsModels\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API\App_Data\" />
@@ -424,6 +434,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201705151409404_initialmigration.resx">
       <DependentUpon>201705151409404_initialmigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803311258226_settings.resx">
+      <DependentUpon>201803311258226_settings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
