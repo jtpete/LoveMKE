@@ -16,6 +16,7 @@ namespace LoveMKERegistration.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: SettingsModels
+        [Route("Settings/Index")]
         public async Task<ActionResult> Index()
         {
             return View(await db.SettingsModels.ToListAsync());
