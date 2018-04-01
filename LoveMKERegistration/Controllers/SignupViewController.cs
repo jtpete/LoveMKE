@@ -14,6 +14,19 @@ namespace LoveMKERegistration.Controllers
     [RoutePrefix("signup")]
     public class SignupViewController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+        private bool hasTshirtSignup
+        {
+            get
+            {
+                var settings = db.SettingsModels.ToList().First<SettingsModel>();
+                return settings.HasTShirts;
+            }
+
+            set { }
+        }
+
         [Route("{groupTypeName}")]
         // GET: /signup/LoveMKE
         public async Task<ActionResult> Signup(string groupTypeName)
@@ -49,7 +62,15 @@ namespace LoveMKERegistration.Controllers
                 SignupViewModel signup = (SignupViewModel)TempData["signup"];
                 SendEmailConfirmation(signup, addPerson);
                 TempData["individual"] = signup.Family;
-                return RedirectToAction("Tshirts", "TShirtSizeModels");
+
+                if (hasTshirtSignup)
+                {
+                    return RedirectToAction("Tshirts", "TShirtSizeModels");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             catch
             {

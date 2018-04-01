@@ -14,6 +14,20 @@ namespace LoveMKERegistration.Controllers
     //[Authorize (Roles = "Admin")] //Uncomment the preceeding to truly lock down access only to Admin.
     public class AdminDashboardController : Controller
     {
+
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+        private bool hasTshirtSignup
+        {
+            get
+            {
+                var settings = db.SettingsModels.ToList().First<SettingsModel>();
+                return settings.HasTShirts;
+            }
+
+            set { }
+        }
+
         // GET: AdminDashboard
         public async Task<ActionResult> Index()
         {
@@ -34,6 +48,16 @@ namespace LoveMKERegistration.Controllers
             catch
             {
                 ViewBag.Count = "Unavailable";
+
+            }
+
+            if (hasTshirtSignup)
+            {
+                ViewBag.Tshirts = true;
+            }
+            else
+            {
+                ViewBag.Tshirts = false;
 
             }
 

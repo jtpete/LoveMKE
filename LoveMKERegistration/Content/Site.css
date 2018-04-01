@@ -17,6 +17,11 @@ body {
         text-align: center;
     }
 
+    .largeCheckbox{
+        height: 20px;
+        width: 20px;
+    }
+
     .projectBtn {
         width: 70%;
         height: 70%;

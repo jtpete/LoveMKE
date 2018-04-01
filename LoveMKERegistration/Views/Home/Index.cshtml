@@ -1,6 +1,8 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    string style = ViewBag.Tshirts ? null : "visibility: hidden";
 }
+
 
 <div id="loveMKErow" class="row">
 
@@ -18,7 +20,7 @@
                 <a class="projectBtn center" href="~/IndividualViewModels/Register">Project Sign-ups</a>
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="@style">
             <div class="col-md-12 projectButtons buttonMargins">
                 <a class="projectBtn center" href="~/TShirtSizeModels/GetPerson">Order T-Shirts</a>
             </div>

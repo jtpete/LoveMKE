@@ -1,6 +1,8 @@
 ﻿
 @{
     ViewBag.Title = "Index";
+    string style = ViewBag.Tshirts ? null : "visibility: hidden";
+
 }
 
 <h2>Your Sign-ups At Southbrook</h2>
@@ -23,17 +25,17 @@
         </div>
         <div class="col-md-3">
             <div class="col-md-12 projectButtons buttonMargins">
-                <a class="projectBtn center" href="~/TShirtSizeModels/TshirtList">T-Shirts</a>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="col-md-12 projectButtons buttonMargins">
                 <a class="projectBtn center" href="~/Account/Register">Add Help</a>
             </div>
         </div>
     <div class="col-md-3">
         <div class="col-md-12 projectButtons buttonMargins">
             <a class="projectBtn center" href="~/Settings">Settings</a>
+        </div>
+    </div>
+    <div class="col-md-3" style="@style">
+        <div class="col-md-12 projectButtons buttonMargins">
+            <a class="projectBtn center" href="~/TShirtSizeModels/TshirtList">T-Shirts</a>
         </div>
     </div>
     </div>
