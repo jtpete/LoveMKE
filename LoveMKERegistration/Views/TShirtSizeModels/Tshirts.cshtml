@@ -9,7 +9,7 @@
 
 <br />
 <br/>
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "SettingsModelsController", FormMethod.Post, new { }))
 {
     @Html.AntiForgeryToken()
 <table class="table table-sm table-responsive">

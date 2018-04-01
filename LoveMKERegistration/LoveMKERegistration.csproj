@@ -288,6 +288,14 @@
     <Compile Include="Migrations\201803311258226_settings.Designer.cs">
       <DependentUpon>201803311258226_settings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803311441120_settings2.cs" />
+    <Compile Include="Migrations\201803311441120_settings2.Designer.cs">
+      <DependentUpon>201803311441120_settings2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803311514535_settings21.cs" />
+    <Compile Include="Migrations\201803311514535_settings21.Designer.cs">
+      <DependentUpon>201803311514535_settings21.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -414,11 +422,7 @@
     <Content Include="Views\TShirtSizeModels\TshirtTotals.cshtml" />
     <Content Include="Views\SignupView\SignupListView.cshtml" />
     <Content Include="Views\AdminDashboard\GroupParticipants.cshtml" />
-    <Content Include="Views\SettingsModels\Create.cshtml" />
-    <Content Include="Views\SettingsModels\Delete.cshtml" />
-    <Content Include="Views\SettingsModels\Details.cshtml" />
     <Content Include="Views\SettingsModels\Edit.cshtml" />
-    <Content Include="Views\SettingsModels\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API\App_Data\" />
@@ -437,6 +441,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803311258226_settings.resx">
       <DependentUpon>201803311258226_settings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803311441120_settings2.resx">
+      <DependentUpon>201803311441120_settings2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803311514535_settings21.resx">
+      <DependentUpon>201803311514535_settings21.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

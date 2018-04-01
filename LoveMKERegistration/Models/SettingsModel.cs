@@ -11,16 +11,21 @@ namespace LoveMKERegistration.Models
     public class SettingsModel
     {
         [Key]
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         [Display(Name = "Has T-Shirt Size Signups")]
         public bool HasTShirts { get; set; }
 
         public byte[] Logo { get; set; }
 
+        public string LogoName { get; set; }
+
 
         [Display(Name = "Background Image")]
         public byte[] Background { get; set; }
+
+        public string BackgroundName { get; set; }
+
 
     }
 }

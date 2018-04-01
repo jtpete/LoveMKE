@@ -17,20 +17,26 @@ namespace LoveMKERegistration.Controllers
         // GET: AdminDashboard
         public async Task<ActionResult> Index()
         {
-
-
-           
-            string typeId = await CCBchurchAPI.GetTypeID("LoveMKE");
-            var groupIdList = await CCBchurchAPI.GetGroupIdList(typeId);
-            var groupList = await CCBchurchAPI.GetGroups(groupIdList);
-            List<string> participantNames = new List<string>();
-            groupList.ForEach(g =>
+            try
             {
-                participantNames.Add(g.Leader.DisplayName);
-                participantNames.AddRange(g.CurrentMembers.Select(m => m.DisplayName));
-            });
-            var totalCount = participantNames.Select(n => n).Distinct().Count();
-            ViewBag.Count = totalCount;
+                string typeId = await CCBchurchAPI.GetTypeID("LoveMKE");
+                var groupIdList = await CCBchurchAPI.GetGroupIdList(typeId);
+                var groupList = await CCBchurchAPI.GetGroups(groupIdList);
+                List<string> participantNames = new List<string>();
+                groupList.ForEach(g =>
+                {
+                    participantNames.Add(g.Leader.DisplayName);
+                    participantNames.AddRange(g.CurrentMembers.Select(m => m.DisplayName));
+                });
+                var totalCount = participantNames.Select(n => n).Distinct().Count();
+                ViewBag.Count = totalCount;
+            }
+            catch
+            {
+                ViewBag.Count = "Unavailable";
+
+            }
+
             return View();
         }
         [HttpGet]

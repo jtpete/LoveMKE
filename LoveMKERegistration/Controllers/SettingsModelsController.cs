@@ -15,59 +15,27 @@ namespace LoveMKERegistration.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: SettingsModels
-        [Route("Settings/Index")]
-        public async Task<ActionResult> Index()
-        {
-            return View(await db.SettingsModels.ToListAsync());
-        }
-
-        // GET: SettingsModels/Details/5
-        public async Task<ActionResult> Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            SettingsModel settingsModel = await db.SettingsModels.FindAsync(id);
-            if (settingsModel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(settingsModel);
-        }
-
-        // GET: SettingsModels/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: SettingsModels/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,HasTShirts,Logo,Background")] SettingsModel settingsModel)
-        {
-            if (ModelState.IsValid)
-            {
-                db.SettingsModels.Add(settingsModel);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
-            return View(settingsModel);
-        }
-
         // GET: SettingsModels/Edit/5
-        public async Task<ActionResult> Edit(string id)
+        [Route("Settings")]
+        public async Task<ActionResult> Edit(Guid? id)
         {
+            SettingsModel settingsModel = new SettingsModel();
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                var settings = await db.SettingsModels.ToListAsync();
+                if (settings.Count() == 0)
+                {
+                    settingsModel = CreateSettings();
+                }
+                else
+                {
+                    settingsModel = settings.First<SettingsModel>();
+                }
             }
-            SettingsModel settingsModel = await db.SettingsModels.FindAsync(id);
+            else
+            {
+                settingsModel = await db.SettingsModels.FindAsync(id);
+            }
             if (settingsModel == null)
             {
                 return HttpNotFound();
@@ -80,41 +48,16 @@ namespace LoveMKERegistration.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,HasTShirts,Logo,Background")] SettingsModel settingsModel)
+        [Route("Settings")]
+        public async Task<ActionResult> Edit([Bind(Include = "Id,HasTShirts,Logo,LogoName,Background,BackgroundName")] SettingsModel settingsModel)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(settingsModel).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "AdminDashboard");
             }
             return View(settingsModel);
-        }
-
-        // GET: SettingsModels/Delete/5
-        public async Task<ActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            SettingsModel settingsModel = await db.SettingsModels.FindAsync(id);
-            if (settingsModel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(settingsModel);
-        }
-
-        // POST: SettingsModels/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
-        {
-            SettingsModel settingsModel = await db.SettingsModels.FindAsync(id);
-            db.SettingsModels.Remove(settingsModel);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -124,6 +67,19 @@ namespace LoveMKERegistration.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        protected SettingsModel CreateSettings()
+        {
+            SettingsModel settingsModel = new SettingsModel();
+            settingsModel.HasTShirts = false;
+            settingsModel.LogoName = "";
+            settingsModel.BackgroundName = "";
+            db.SettingsModels.Add(settingsModel);
+            db.SaveChanges();
+            return db.SettingsModels.ToList().FirstOrDefault<SettingsModel>();
+            
+
         }
     }
 }
