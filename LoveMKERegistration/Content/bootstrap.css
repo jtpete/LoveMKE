@@ -2518,7 +2518,7 @@ input[type="search"] {
 }
 input[type="radio"],
 input[type="checkbox"] {
-  margin: 10px 0 0;
+  margin: 4px 0 0;
   margin-top: 1px \9;
   line-height: normal;
 }
@@ -5945,7 +5945,6 @@ button.close {
 .modal-body {
   position: relative;
   padding: 15px;
-  color: black;
 }
 .modal-footer {
   padding: 15px;

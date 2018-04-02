@@ -404,8 +404,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\IndividualViewModels\Register.cshtml" />
     <Content Include="Views\IndividualViewModels\AdvanceSearch.cshtml" />
     <Content Include="Views\IndividualViewModels\AddIndividualToCCB.cshtml" />
@@ -423,6 +421,8 @@
     <Content Include="Views\SignupView\SignupListView.cshtml" />
     <Content Include="Views\AdminDashboard\GroupParticipants.cshtml" />
     <Content Include="Views\SettingsModels\Edit.cshtml" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API\App_Data\" />
@@ -430,10 +430,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
-    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201705151409404_initialmigration.resx">
@@ -448,6 +444,10 @@
     <EmbeddedResource Include="Migrations\201803311514535_settings21.resx">
       <DependentUpon>201803311514535_settings21.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

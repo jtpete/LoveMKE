@@ -21,7 +21,16 @@ namespace LoveMKERegistration.Controllers
         {
             get
             {
-                var settings = db.SettingsModels.ToList().First<SettingsModel>();
+                SettingsModel settings = new SettingsModel();
+                try
+                {
+                    settings = db.SettingsModels.ToList().First<SettingsModel>();
+                }
+                catch
+                {
+                    return false;
+
+                }
                 return settings.HasTShirts;
             }
 
